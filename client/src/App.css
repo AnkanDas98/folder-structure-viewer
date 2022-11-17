@@ -1,0 +1,10 @@
+.App{
+  font-family: 'Poppins', sans-serif;
+  
+}
+
+@media(max-width:400px){
+  .App{
+    overflow-x: scroll;
+  }
+}
