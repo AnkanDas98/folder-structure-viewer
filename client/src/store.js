@@ -1,12 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import {
-  directoryReducer,
-  childDirectoryReducer,
-} from "./reducers/directoryReducer";
+import { directoryReducer } from "./reducers/directoryReducer";
 
 const rootReducer = combineReducers({
   allDirectory: directoryReducer,
-  childDirectory: childDirectoryReducer,
 });
 
 const store = configureStore({

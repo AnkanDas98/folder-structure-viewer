@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { axiosRequest } from "../../request";
 import Branch from "../Branch/Branch";
 import Modal from "../Modal/Modal";
-
-import { fetchChildDirectory } from "../../actions/directoryAction";
+import { axiosRequest } from "../../request";
 
 import styles from "./node.module.css";
+import { useSelector } from "react-redux";
 
 const Node = ({ node }) => {
   let hasChild = node.hasChild ? true : false;
-  // const [childData, setChildData] = useState([]);
   const [isExpand, setIsExpand] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [id, setId] = useState("");
   const [method, setMethod] = useState("");
-
-  const dispatch = useDispatch();
-  const { childData } = useSelector((state) => state.childDirectory);
+  const [childData, setChildData] = useState([]);
 
   const handleClick = (method) => {
     setShowModal(true);
-    setId(node.id);
+    setId(node._id);
     setMethod(method);
   };
 
@@ -32,20 +26,22 @@ const Node = ({ node }) => {
     setId("");
   };
 
-  useEffect(() => {
+  const clickHandler = async () => {
     if (hasChild) {
-      fetchChildDirectory(dispatch, node._id);
-      hasChild = false;
+      try {
+        const res = await axiosRequest.get(`/directory/${node._id}`);
+        setChildData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [hasChild]);
+    setIsExpand(!isExpand);
+  };
 
   return (
     <>
       <div className={styles.node}>
-        <div
-          className={styles.node_item}
-          onClick={() => setIsExpand(!isExpand)}
-        >
+        <div className={styles.node_item} onClick={clickHandler}>
           <img
             className={`${styles.arrow} ${isExpand ? styles.active : ""}`}
             src="/icons/caret-right-outline-icon.svg"
@@ -68,7 +64,7 @@ const Node = ({ node }) => {
           )}
         </div>
         {showModal && method && (
-          <Modal method={method} handleCancel={handleCancel} />
+          <Modal id={id} method={method} handleCancel={handleCancel} />
         )}
       </div>
       {hasChild && isExpand && (

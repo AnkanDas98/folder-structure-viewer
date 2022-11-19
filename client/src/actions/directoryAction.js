@@ -1,7 +1,4 @@
-import {
-  directoryFetch,
-  child_directory_fetch,
-} from "../reducers/directoryReducer";
+import { directoryFetch } from "../reducers/directoryReducer";
 import { axiosRequest } from "../request";
 
 export const fetchDirectory = async (dispatch) => {
@@ -13,10 +10,23 @@ export const fetchDirectory = async (dispatch) => {
   }
 };
 
-export const fetchChildDirectory = async (dispatch, id) => {
+export const storeDirectory = async (dispatch, id, data) => {
   try {
-    const res = await axiosRequest.get(`/directory/${id}`);
-    dispatch(child_directory_fetch(res.data));
+    const res = await axiosRequest.post(`/store/directory/${id}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    dispatch(directoryFetch(res.data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteDirectory = async (dispatch, id) => {
+  try {
+    const res = await axiosRequest.delete(`/delete/directory/${id}`);
+    dispatch(directoryFetch(res.data));
   } catch (error) {
     console.log(error);
   }
