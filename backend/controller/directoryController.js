@@ -32,7 +32,6 @@ exports.save = async (req, res) => {
       parentId: req.params.id,
     });
     const data = await directory.save();
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ error: error });
