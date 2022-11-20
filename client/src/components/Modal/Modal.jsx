@@ -3,11 +3,19 @@ import { useDispatch } from "react-redux";
 import { storeDirectory, deleteDirectory } from "../../actions/directoryAction";
 import styles from "./modal.module.css";
 import { axiosRequest } from "../../request";
-import Branch from "../Branch/Branch";
+import Node from "../Node/Node";
+
+function useForceUpdate() {
+  const [value, setValue] = useState(0);
+  return () => setValue((value) => value + 1);
+}
 
 const Modal = ({ method, handleCancel, id }) => {
+  const forceUpdate = useForceUpdate();
+
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -17,10 +25,26 @@ const Modal = ({ method, handleCancel, id }) => {
       setError(true);
     } else {
       handleCancel();
+
+      // const res = await axiosRequest.post(
+      //   `/store/directory/${id}`,
+      //   { name },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+
       storeDirectory(dispatch, id, { name });
       window.location.reload(false);
     }
   };
+
+  if (loading) {
+    setLoading(false);
+    return;
+  }
 
   const deleController = async () => {
     deleteDirectory(dispatch, id);
