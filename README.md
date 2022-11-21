@@ -9,6 +9,8 @@ In the project directory,run:
 ### `npm run import`
 ###  `npm start`
 
+Set Mongodb url in .env file
+
 Then go the client folder run commands:
 
 ### `cd .\client\`
