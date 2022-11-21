@@ -5,12 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon backend/server.js",
+    "start": "nodemon backend/server.js",
     "import": "node backend/seeder",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && cd client && npm run build",
-    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+    "heroku-postbuild": "cd client && npm install"
+    
   },
   "repository": {
     "type": "git",

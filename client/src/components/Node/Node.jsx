@@ -4,7 +4,6 @@ import Modal from "../Modal/Modal";
 import { axiosRequest } from "../../request";
 
 import styles from "./node.module.css";
-import { useSelector } from "react-redux";
 
 const Node = ({ node }) => {
   let hasChild = node.hasChild ? true : false;

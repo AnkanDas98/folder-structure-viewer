@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Modal from "../Modal/Modal";
+import React, { useState } from "react";
+
 import Node from "../Node/Node";
 
 import style from "./branch.module.css";
 
 const Branch = ({ data = [] }) => {
-  const [items, setitems] = useState(data.length === 0 ? [] : data);
+  // const [items, setitems] = useState(data.length === 0 ? [] : data);
+  const items = data.length === 0 ? [] : data;
 
   if (data.length === 0) {
     return;

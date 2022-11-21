@@ -1,18 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { storeDirectory, deleteDirectory } from "../../actions/directoryAction";
 import styles from "./modal.module.css";
-import { axiosRequest } from "../../request";
-import Node from "../Node/Node";
-
-function useForceUpdate() {
-  const [value, setValue] = useState(0);
-  return () => setValue((value) => value + 1);
-}
 
 const Modal = ({ method, handleCancel, id }) => {
-  const forceUpdate = useForceUpdate();
-
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);

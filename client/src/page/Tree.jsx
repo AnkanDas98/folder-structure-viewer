@@ -13,7 +13,7 @@ const Tree = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     fetchDirectory(dispatch);
-  }, [dispatch, fetchDirectory]);
+  }, [dispatch]);
 
   if (data.length === 0) {
     return;
